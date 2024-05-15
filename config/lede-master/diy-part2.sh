@@ -9,7 +9,7 @@
 # ------------------------------- Main source started -------------------------------
 #
 # Modify default theme（FROM uci-theme-bootstrap CHANGE TO luci-theme-material）
-# sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci/Makefile
+# sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
 
 # Add autocore support for armvirt
 sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
@@ -19,7 +19,7 @@ sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package
 echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
 
 # Modify default IP（FROM 192.168.1.1 CHANGE TO 192.168.31.4）
-# sed -i 's/192.168.1.1/192.168.31.4/g' package/base-files/files/bin/config_generate
+# sed -i 's/192.168.1.1/192.168.0.66/g' package/base-files/files/bin/config_generate
 
 # Replace the default software source
 # sed -i 's#openwrt.proxy.ustclug.org#mirrors.bfsu.edu.cn\\/openwrt#' package/lean/default-settings/files/zzz-default-settings
@@ -30,7 +30,7 @@ echo "DISTRIB_SOURCECODE='lede'" >>package/base-files/files/etc/openwrt_release
 #
 # Add luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
-
+svn co https://github.com/kenzok8/small/tree/master/luci-app-passwall package/luci-app-passwall
 # Fix runc version error
 # rm -rf ./feeds/packages/utils/runc/Makefile
 # svn export https://github.com/openwrt/packages/trunk/utils/runc/Makefile ./feeds/packages/utils/runc/Makefile
@@ -41,6 +41,8 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 
 # Add third-party software packages (The entire repository)
 # git clone https://github.com/libremesh/lime-packages.git package/lime-packages
+git clone https://github.com/kenzok8/openwrt-packages package/openwrt-packages
+git clone https://github.com/kenzok8/small package/mall
 # Add third-party software packages (Specify the package)
 # svn co https://github.com/libremesh/lime-packages/trunk/packages/{shared-state-pirania,pirania-app,pirania} package/lime-packages/packages
 # Add to compile options (Add related dependencies according to the requirements of the third-party software package Makefile)
